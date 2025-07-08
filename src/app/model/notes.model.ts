@@ -19,7 +19,8 @@ const noteSchema = new Schema<INotes>({
    },
    
       userId:{
-        type:Schema.Types.ObjectId
+        type:Schema.Types.ObjectId,
+        ref:"User"
     }
 },
 

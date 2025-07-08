@@ -1,10 +1,12 @@
 import express, { Request, Response } from "express"
 import { Note } from "../model/notes.model"
 
+
 export const noteRoutes = express.Router()
 
 noteRoutes.post('/create-note',async(req:Request,res:Response)=>{
-    const body = req.body
+    const body = req.body;
+   
     const note = await Note.create(body)
     // const myNote = new Note ({
     //     title:"learning mongoose",

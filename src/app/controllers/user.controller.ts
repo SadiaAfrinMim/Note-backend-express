@@ -3,6 +3,7 @@ import express, {  Request, Response } from 'express';
 import { User } from '../model/user.model';
 import z from 'zod';
 
+
 export const userRoutes = express.Router()
 
 const createUserZodSchema = z.object({
@@ -16,14 +17,29 @@ const createUserZodSchema = z.object({
 })
 
 userRoutes.post('/create-user',async(req:Request,res:Response)=>{
-    const body = req.body 
-    const user = await User.create(body);
-    res.status(201).json({
+
+    try{
+        // const zodbody = await createUserZodSchema.parseAsync(req.body);
+        const body = req.body;
+        const user = await User.create(body)
+        console.log(body,"zod body")
+         res.status(201).json({
         success:true,
         message:"Note created successfully",
-         user
+         user:user
     })
    
+    }
+    catch(error:any){
+        console.log(error)
+          res.status(400).json({
+        success:false,
+        message:error.message,
+        error
+    })
+   
+   
+}
 
 })
 

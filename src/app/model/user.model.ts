@@ -1,6 +1,15 @@
 import { model, Schema } from "mongoose";
 import { Iuser } from "../interfaces/user.interface";
 import validator from 'validator';
+import { IAddress } from './../interfaces/user.interface';
+
+const addressSchema = new Schema<IAddress>({
+      city:{type:String},
+        street:{type:String},
+        zip:{type:Number}
+},{
+    _id:false
+})
 
 
 
@@ -55,9 +64,18 @@ const userSchema = new Schema<Iuser>({
             message:"Role is not valid go {VALUE} role"
         },
         default:'USER'
+    },
+    address:{
+        type : addressSchema
+      
     }
-
-})
+   
+},
+ {
+        versionKey: false,
+        timestamps: true
+    }
+)
 
 
 export const User = model("User",userSchema)

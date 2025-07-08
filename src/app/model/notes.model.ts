@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
+import { INotes } from "../interfaces/note.interface";
 
-const noteSchema = new Schema({
+const noteSchema = new Schema<INotes>({
     title :{type: String ,require:true,trim:true},
     content: {type:String,default:" "},    
    category:{
@@ -15,7 +16,14 @@ const noteSchema = new Schema({
    tags:{
     label:{type:String,require: true},
     color: {type:String,default:'gray'}
-   }},{
+   },
+   
+      userId:{
+        type:Schema.Types.ObjectId
+    }
+},
+
+    {
     versionKey:false,
     timestamps:true
    }

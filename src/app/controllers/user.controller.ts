@@ -25,14 +25,17 @@ userRoutes.post('/create-user',async(req:Request,res:Response)=>{
     //      const password = await bcrypt.hash(body.password,10)
     // console.log(password)
     // body.password = password
-        // const user = await User.create(body)
+        
 
 
-        const user = new User(body)
-       const password = await user.hashPassword(body.password)
-       console.log(password)
-       user.password = password as string
-        await user.save();
+        // const user = new User(body)
+        //   await user.save();
+    //    const password = await User.hashPassword(body.password)
+    //    console.log(password)
+    //    body.password = password
+
+       const user = await User.create(body)
+      
         console.log(body,"zod body")
          res.status(201).json({
         success:true,
@@ -77,7 +80,8 @@ userRoutes.get("/:userId",async(req:Request,res:Response)=>{
 
 userRoutes.delete("/:userId",async(req:Request,res:Response)=>{
     const userId =req.params.userId 
-    const user = await User.deleteOne({_id:userId})
+    // const user = await User.deleteOne({_id:userId})
+    const user = await User.findOneAndDelete({_id:userId})
     res.status(201).json({
         success:true,
         message:"the user is deleted",
